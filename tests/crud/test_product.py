@@ -16,8 +16,9 @@ def fix_provider(db: Session):
 
 
 def test_create_product(db: Session, fix_provider):
-    name = 'Product Name'
-    qty = 1
-    product_in = ProductCreate(name=name, qty=qty, provider_id=fix_provider.id)
+    obj = dict(name='Fake Product', qty=1)
+    product_in = ProductCreate(**obj, provider_id=fix_provider.id)
     product = crud.product.create(db=db, obj_in=product_in)
-    assert product.name == name
+    assert product.name == obj['name']
+    assert product.qty == obj['qty']
+    assert product.provider_id == fix_provider.id
