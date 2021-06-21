@@ -11,9 +11,9 @@ engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base.metadata.create_all(bind=engine)
 
 
 @pytest.fixture
 def db() -> Generator:
+    Base.metadata.create_all(bind=engine)
     yield TestingSessionLocal()
