@@ -12,3 +12,14 @@ class ProductCreate(ProductBase):
 
 class ProductUpdate(ProductBase):
     pass
+
+
+class ProductInDBBase(ProductBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class Product(ProductInDBBase):
+    pass

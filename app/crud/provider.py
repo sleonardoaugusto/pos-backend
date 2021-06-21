@@ -1,10 +1,11 @@
+from app import models, schemas
 from app.crud.base import CRUDBase
-from app.models import Provider
-from app.schemas import ProviderCreate, ProviderUpdate
 
 
-class CRUDProvider(CRUDBase[Provider, ProviderCreate, ProviderUpdate]):
+class CRUDProvider(
+    CRUDBase[models.Provider, schemas.ProviderCreate, schemas.ProviderUpdate]
+):
     pass
 
 
-provider = CRUDProvider(Provider)
+provider = CRUDProvider(models.Provider)
