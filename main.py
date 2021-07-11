@@ -1,3 +1,4 @@
+import uvicorn
 from alembic.config import Config
 from fastapi import FastAPI
 
@@ -12,6 +13,7 @@ alembic_cfg = Config("alembic.ini")
 command.stamp(alembic_cfg, "head")
 
 app = FastAPI()
-
-
 app.include_router(api_router, prefix='/api')
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

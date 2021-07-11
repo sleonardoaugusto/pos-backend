@@ -40,4 +40,4 @@ def db() -> Generator:
 
 
 def _delete_database():
-    Path(Path().parent).joinpath('test.db').unlink()
+    Path('test.db').unlink()
