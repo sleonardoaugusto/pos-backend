@@ -23,3 +23,11 @@ class ProductInDBBase(ProductBase):
 
 class Product(ProductInDBBase):
     pass
+
+
+class ProductOutOfStock(BaseModel):
+    id: int
+    qty: int
+
+    class Config:
+        orm_mode = True
