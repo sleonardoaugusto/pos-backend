@@ -2,6 +2,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from starlette import status
 
 from app import schemas, crud
 from app.api import deps
@@ -31,18 +32,21 @@ class Stock:
         return records
 
 
-@router.post('/entry', response_model=List[schemas.Product])
+@router.post(
+    '/entry', response_model=List[schemas.Product], status_code=status.HTTP_201_CREATED
+)
 def create_stock_entry(
     *, db: Session = Depends(deps.get_db), stock_in: schemas.StockEntryCreate
 ):
     stock = Stock(db)
-    products = stock.entry(stock_in.products, stock_in.provider_id)
-    return products
+    stock.entry(stock_in.products, stock_in.provider_id)
 
 
-@router.post('/out', response_model=List[schemas.Product])
+@router.post(
+    '/out', response_model=List[schemas.Product], status_code=status.HTTP_201_CREATED
+)
 def create_out_of_stock(
     *, db: Session = Depends(deps.get_db), stock_in: schemas.OutOfStockCreate
 ):
     stock = Stock(db)
-    return stock.out(stock_in.products)
+    stock.out(stock_in.products)
